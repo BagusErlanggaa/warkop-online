@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Your Cart - Warkop Santuy</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+    <link href="{{ asset ('iLanding/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset ('iLanding/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset ('iLanding/assets/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset ('iLanding/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ asset ('iLanding/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{{ asset ('iLanding/assets/css/main.css') }}" rel="stylesheet">
+
+  <style>
+    /* Cart Icon Styling to match iLanding template */
+    .cart-icon {
+      color: #444;
+      transition: 0.3s;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-icon:hover {
+      color: #2487ce;
+    }
+
+    .cart-badge {
+      font-size: 0.6rem;
+      padding: 3px 6px;
+      background-color: #2487ce !important;
+    }
+
+    /* Adjust login button spacing */
+    .btn-getstarted {
+      margin-left: 15px;
+    }
+
+    /* Modern Cart Styling */
+    .cart-page {
+      padding: 100px 0 60px;
+    }
+
+    .cart-header {
+      border-bottom: 1px solidrgb(12, 12, 12);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .cart-title {
+      font-weight: 700;
+      color: #2d405f;
+      font-size: 2rem;
+    }
+
+    .cart-card {
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: none;
+      overflow: hidden;
+    }
+
+    .cart-card-header {
+      background-color: #f8f9fa;
+      padding: 15px 25px;
+      font-weight: 600;
+      color: #2d405f;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .cart-item {
+      padding: 25px;
+      transition: all 0.3s ease;
+      border-bottom: 1px solidrgb(73, 66, 66);
+    }
+
+    .cart-item:hover {
+      background-color:rgb(24, 22, 22);
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .product-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .product-title {
+      font-weight: 600;
+      color: #2d405f;
+      margin-bottom: 5px;
+    }
+
+    .product-category {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .price-text {
+      font-weight: 600;
+      color: #2d405f;
+    }
+
+    .quantity-input {
+      width: 70px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+    }
+
+    .quantity-btn {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .quantity-btn:hover {
+      background-color: #e9ecef;
+    }
+
+    .remove-btn {
+      color: #dc3545;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+
+    .remove-btn:hover {
+      color: #bb2d3b;
+      transform: scale(1.1);
+    }
+
+    .cart-footer {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-top: 1px solid #eaeaea;
+    }
+
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d405f;
+    }
+
+    .checkout-btn {
+      background-color: #2487ce;
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background-color: #1f76b0;
+      transform: translateY(-2px);
+    }
+
+    .clear-cart-btn {
+      border: 1px solid #dc3545;
+      color: #dc3545;
+      background: none;
+      padding: 10px 20px;
+      transition: all 0.3s;
+    }
+
+    .clear-cart-btn:hover {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .empty-cart {
+      padding: 50px;
+      text-align: center;
+      border-radius: 12px;
+      background-color: #f8f9fa;
+    }
+
+    .empty-cart-icon {
+      font-size: 4rem;
+      color: #6c757d;
+      margin-bottom: 20px;
+    }
+
+    .continue-shopping {
+      color: #2487ce;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .continue-shopping:hover {
+      text-decoration: underline;
+      color: #1f76b0;
+    }
+
+    @media (max-width: 768px) {
+      .cart-item {
+        padding: 15px;
+      }
+      
+      .product-img {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .cart-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+    <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+      <!-- <img src="assets/img/logo.png" alt=""> -->
+      <h1 class="sitename">Warkop Santuy</h1>
+    </a>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="/history">History</a></li>
+        <li><a href="#contact">Faq</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+
+    <div class="d-flex align-items-center">
+      <a class="cart-icon me-3 position-relative" href="{{ route('cart.index') }}">
+        <i class="bi bi-cart3 fs-5"></i>
+        @if(session()->has('cart') && count(session()->get('cart')) > 0)
+          <span class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+            {{ count(session()->get('cart')) }}
+          </span>
+        @endif
+      </a>
+      
+      <a class="btn-getstarted" href="/login">Login</a>
+    </div>
+  </div>
+</header>
+
+<main class="cart-page">
+  <div class="container" data-aos="fade-up">
+    <div class="cart-header">
+      <h1 class="cart-title">Your Shopping Cart</h1>
+    </div>
+    
+    @if(count($products) > 0)
+      <div class="cart-card">
+        <div class="cart-card-header">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h5 class="mb-0">Product</h5>
+            </div>
+            <div class="col-md-2 text-center">
+              <h5 class="mb-0">Price</h5>
+            </div>
+            <div class="col-md-2 text-center">
+              <h5 class="mb-0">Quantity</h5>
+            </div>
+            <div class="col-md-2 text-center">
+              <h5 class="mb-0">Subtotal</h5>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body p-0">
+          @foreach($products as $item)
+            <div class="cart-item">
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center">
+                    @if($item['product']->photo)
+                      <img src="{{ asset('storage/' . $item['product']->photo) }}" alt="{{ $item['product']->nama }}" class="product-img me-4">
+                    @else
+                      <img src="https://via.placeholder.com/100" alt="{{ $item['product']->nama }}" class="product-img me-4">
+                    @endif
+                    <div>
+                      <h5 class="product-title">{{ $item['product']->nama }}</h5>
+                      <p class="product-category mb-0">{{ $item['product']->category->nama }}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-2 text-center">
+                  <span class="price-text">Rp {{ number_format($item['product']->harga, 0, ',', '.') }}</span>
+                </div>
+                
+                <div class="col-md-2">
+                  <form action="{{ route('cart.update') }}" method="POST" class="d-flex justify-content-center">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $item['product']->product_id }}">
+                    <div class="input-group" style="max-width: 120px;">
+                      <button class="quantity-btn minus-btn" type="button">-</button>
+                      <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control quantity-input">
+                      <button class="quantity-btn plus-btn" type="button">+</button>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-link text-primary ms-2 d-none d-md-block">
+                      <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                  </form>
+                </div>
+                
+                <div class="col-md-2 text-center">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <span class="price-text me-3">Rp {{ number_format($item['product']->harga * $item['quantity'], 0, ',', '.') }}</span>
+                    <form action="{{ route('cart.remove') }}" method="POST" class="d-inline">
+                      @csrf
+                      <input type="hidden" name="id" value="{{ $item['product']->product_id }}">
+                      <button type="submit" class="remove-btn">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endforeach
+        </div>
+        
+        <div class="cart-footer">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <form action="{{ route('cart.clear') }}" method="POST">
+                @csrf
+                <button type="submit" class="clear-cart-btn rounded-pill">
+                  <i class="bi bi-trash me-2"></i> Clear Cart
+                </button>
+              </form>
+            </div>
+            <div class="col-md-6 text-md-end mt-3 mt-md-0">
+              <div class="d-flex flex-column align-items-end">
+                <h4 class="total-price mb-3">Total: Rp {{ number_format($total, 0, ',', '.') }}</h4>
+                <a href="{{ route('checkout.index') }}" class="btn btn-primary checkout-btn rounded-pill">
+                  Proceed to Checkout <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    @else
+      <div class="empty-cart">
+        <i class="bi bi-cart-x empty-cart-icon"></i>
+        <h3 class="mb-3">Your cart is empty</h3>
+        <p class="mb-4">Looks like you haven't added any items to your cart yet.</p>
+        <a href="{{ route('home') }}" class="continue-shopping">
+          <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+        </a>
+      </div>
+    @endif
+  </div>
+</main>
+
+<!-- Vendor JS Files -->
+<script src="{{ asset ('iLanding/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset ('iLanding/assets/vendor/aos/aos.js') }}"></script>
+<script src="{{ asset ('iLanding/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset ('iLanding/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+<!-- Main JS File -->
+<script src="{{ asset ('iLanding/assets/js/main.js') }}"></script>
+
+<script>
+  // Quantity buttons functionality
+  document.querySelectorAll('.minus-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const input = this.parentNode.querySelector('.quantity-input');
+      if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    });
+  });
+
+  document.querySelectorAll('.plus-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const input = this.parentNode.querySelector('.quantity-input');
+      input.value = parseInt(input.value) + 1;
+    });
+  });
+</script>
+
+</body>
+</html>
